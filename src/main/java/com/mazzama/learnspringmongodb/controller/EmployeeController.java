@@ -6,6 +6,7 @@ import com.mazzama.learnspringmongodb.repository.EmployeeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,5 +57,18 @@ public class EmployeeController {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
         employeeRepository.delete(employee);
+    }
+
+    @GetMapping("/searchByEmail")
+    public Employee searchByEmail(@RequestParam(name = "email") String email) {
+        return employeeRepository.findByEmail(email)
+                .orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @GetMapping("/searchByExperience")
+    public List<Employee> searchByExperience(@RequestParam(name = "from") Double from, @RequestParam(name = "to", required = false) Double to) {
+    if (to != null)
+        return employeeRepository.findByExperienceBetween(from, to);
+    return employeeRepository.findByExperienceGreaterThan(from);
     }
 }
