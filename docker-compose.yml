@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  springboot:
+    build: .
+#    restart: always
+    container_name: springboot
+    ports:
+      - 8182:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: springboot-mongo
+#    restart: always
