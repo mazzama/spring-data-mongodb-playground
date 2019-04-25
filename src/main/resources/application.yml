@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost
+      database: playground
+      username: mazzama
+      password: admin123
+
+server:
+  port: 2000
